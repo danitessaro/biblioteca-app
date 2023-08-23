@@ -19,7 +19,7 @@ import com.danitessaro.bibliotecaapp.model.Usuario;
 import com.danitessaro.bibliotecaapp.service.UsuarioService;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/usuario")
 public class UsuarioController {
     
     private final UsuarioService usuarioService;
@@ -31,7 +31,7 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity createUsuario(@RequestBody Usuario usuario) throws URISyntaxException {
         Usuario usuarioAdicionado = usuarioService.adicionarUsuario(usuario);
-        return ResponseEntity.created(new URI("/usuarios" + usuarioAdicionado.getId())).body(usuarioAdicionado);
+        return ResponseEntity.created(new URI("/usuario" + usuarioAdicionado.getId())).body(usuarioAdicionado);
     }
 
    @GetMapping("/{id}")
