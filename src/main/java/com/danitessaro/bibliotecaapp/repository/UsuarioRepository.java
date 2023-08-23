@@ -11,7 +11,7 @@ import com.danitessaro.bibliotecaapp.model.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-    Optional<Usuario> findByNome(@Param("nome") String nome);
+    Optional<Usuario> findFirstByNome(@Param("nome") String nome);
 
     Optional<Usuario> findByCpf(@Param("cpf") String cpf);
 }

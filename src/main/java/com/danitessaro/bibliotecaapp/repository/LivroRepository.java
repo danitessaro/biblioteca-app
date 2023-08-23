@@ -15,7 +15,7 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
 
     List<Livro> findByAutor(@Param("autor") String autor);
 
-    Optional<Livro> findByTitulo(@Param("titulo") String titulo);
+    Optional<Livro> findFirstByTitulo(@Param("titulo") String titulo);
 
     List<Livro> findByUsuario(@Param("usuario") Usuario usuario);
 }
