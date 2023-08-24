@@ -25,14 +25,14 @@ public class LivroController {
 
     private final LivroService livroService;
 
-    public LivroController (LivroService livroService) {
+    public LivroController(LivroService livroService) {
         this.livroService = livroService;
     }
-    
+
     @PostMapping
     public ResponseEntity createLivro(@RequestBody Livro livro) throws URISyntaxException {
         Livro livroAdicionado = livroService.adicionarLivro(livro);
-        return ResponseEntity.created(new URI("/livros/" + livroAdicionado.getId())).body(livroAdicionado);
+        return ResponseEntity.created(new URI("/livro/" + livroAdicionado.getId())).body(livroAdicionado);
     }
 
     @GetMapping("/{id}")

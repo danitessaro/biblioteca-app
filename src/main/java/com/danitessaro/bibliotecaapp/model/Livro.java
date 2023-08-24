@@ -24,11 +24,10 @@ public class Livro {
     @Setter
     private String autor;
 
-
     @ManyToOne
-    @JoinColumn(name="usuario_id", nullable=true)
+    @JoinColumn(name = "usuario_id", nullable = true)
     @Getter
     @Setter
     private Usuario usuario;
-    
+
 }

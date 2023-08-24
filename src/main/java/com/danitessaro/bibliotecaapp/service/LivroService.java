@@ -27,9 +27,10 @@ public class LivroService {
     public Livro adicionarLivro(Livro livro) {
         return this.repository.save(livro);
     }
-    
+
     public Livro buscarLivro(Long id) {
-        return this.repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,MSG_LIVRO_NAO_ENCONTRADO));
+        return this.repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_LIVRO_NAO_ENCONTRADO));
     }
 
     public List<Livro> buscarLivros(String autor) {
@@ -41,11 +42,13 @@ public class LivroService {
     }
 
     public Livro buscarLivro(String titulo) {
-        return this.repository.findFirstByTitulo(titulo).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,MSG_LIVRO_NAO_ENCONTRADO));
+        return this.repository.findFirstByTitulo(titulo)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_LIVRO_NAO_ENCONTRADO));
     }
 
     public Livro editarLivro(Long id, Livro novoLivro) {
-        Livro livroExistente = this.repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,MSG_LIVRO_NAO_ENCONTRADO));
+        Livro livroExistente = this.repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_LIVRO_NAO_ENCONTRADO));
         livroExistente.setTitulo(novoLivro.getTitulo());
         livroExistente.setAutor(novoLivro.getAutor());
         return this.repository.save(livroExistente);
@@ -56,7 +59,8 @@ public class LivroService {
     }
 
     public Livro emprestarLivro(Long id, Long idUsuario) throws Exception {
-        Livro livro = this.repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,MSG_LIVRO_NAO_ENCONTRADO));
+        Livro livro = this.repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_LIVRO_NAO_ENCONTRADO));
         Usuario usuario = this.usuarioService.buscarUsuario(idUsuario);
         List<Livro> livrosEmprestados = buscarLivros(usuario);
         if (livroDisponivelParaEmprestimo(livro, livrosEmprestados)) {
@@ -65,7 +69,7 @@ public class LivroService {
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MSG_EMPRESTIMO_INDISPONIVEL);
         }
-        
+
     }
 
     private boolean livroDisponivelParaEmprestimo(Livro livro, List<Livro> livrosEmprestados) {
@@ -73,7 +77,8 @@ public class LivroService {
     }
 
     public Livro devolverLivro(Long id) {
-        Livro livroDevolvido = this.repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,MSG_LIVRO_NAO_ENCONTRADO));
+        Livro livroDevolvido = this.repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_LIVRO_NAO_ENCONTRADO));
         livroDevolvido.setUsuario(null);
         return this.repository.save(livroDevolvido);
     }

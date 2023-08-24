@@ -2,7 +2,6 @@ package com.danitessaro.bibliotecaapp.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +20,7 @@ import com.danitessaro.bibliotecaapp.service.UsuarioService;
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
-    
+
     private final UsuarioService usuarioService;
 
     public UsuarioController(UsuarioService usuarioService) {
@@ -34,17 +33,17 @@ public class UsuarioController {
         return ResponseEntity.created(new URI("/usuario" + usuarioAdicionado.getId())).body(usuarioAdicionado);
     }
 
-   @GetMapping("/{id}")
-   public Usuario getUsuario(@PathVariable Long id) {
-       return usuarioService.buscarUsuario(id);
-   }
+    @GetMapping("/{id}")
+    public Usuario getUsuario(@PathVariable Long id) {
+        return usuarioService.buscarUsuario(id);
+    }
 
-   @GetMapping
-   public Usuario getUsuario(@RequestParam String nome) {
-       return usuarioService.buscarUsuario(nome);
-   }
+    @GetMapping
+    public Usuario getUsuario(@RequestParam String nome) {
+        return usuarioService.buscarUsuario(nome);
+    }
 
-   @PutMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity updateUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
         Usuario usuarioAtualizado = usuarioService.editarUsuario(id, usuario);
         return ResponseEntity.ok(usuarioAtualizado);

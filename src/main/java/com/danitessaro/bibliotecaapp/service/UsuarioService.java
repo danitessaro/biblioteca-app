@@ -15,7 +15,6 @@ public class UsuarioService {
     private static final String MSG_CADASTRO_INCONSISTENTE = "Cadastro com dados inconsistentes";
     private static final String MSG_USUARIO_NAO_ENCONTRADO = "Usuário não encontrado";
 
-
     @Autowired
     private UsuarioRepository repository;
 
@@ -28,16 +27,19 @@ public class UsuarioService {
     }
 
     public Usuario buscarUsuario(Long id) {
-        return this.repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_USUARIO_NAO_ENCONTRADO));
+        return this.repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_USUARIO_NAO_ENCONTRADO));
     }
 
     public Usuario buscarUsuario(String nome) {
-        return this.repository.findFirstByNome(nome).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_USUARIO_NAO_ENCONTRADO));
+        return this.repository.findFirstByNome(nome)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_USUARIO_NAO_ENCONTRADO));
     }
 
     public Usuario editarUsuario(Long id, Usuario novoUsuario) {
         if (cadastroValido(novoUsuario)) {
-            Usuario usuarioExistente = this.repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_USUARIO_NAO_ENCONTRADO));
+            Usuario usuarioExistente = this.repository.findById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_USUARIO_NAO_ENCONTRADO));
             usuarioExistente.setNome(novoUsuario.getNome());
             usuarioExistente.setCpf(novoUsuario.getCpf());
             return this.repository.save(usuarioExistente);
@@ -45,7 +47,7 @@ public class UsuarioService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MSG_CADASTRO_INCONSISTENTE);
         }
     }
-    
+
     public void excluirUsuario(Long id) {
         this.repository.deleteById(id);
     }
@@ -64,11 +66,10 @@ public class UsuarioService {
     }
 
     private boolean nomeValido(Usuario usuario) {
-        return usuario.getNome().matches("^((\\b[A-zÀ-ú']{2,40}\\b)\\s*){2,}$");  
+        return usuario.getNome().matches("^((\\b[A-zÀ-ú']{2,40}\\b)\\s*){2,}$");
     }
 
     private boolean cadastroValido(Usuario usuario) {
         return nomeValido(usuario) && cpfValido(usuario) && verificarCpfDuplicado(usuario);
     }
 }
-
