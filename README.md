@@ -21,7 +21,7 @@ Exemplo de Body:
 - GET: /usuario/{id}
     
 #### Buscar usuario por nome:
-- GET: /usuario/nome?nome={nome}
+- GET: /usuario?nome={nome}
 
 #### Editar registro de usuario:
 - PUT: /usuario/{id}
