@@ -1,6 +1,6 @@
 # Aplicação para Gerenciamento de Biblioteca
 ## Desafio
-Criação de uma API REST em Java, utilizando Spring Boot e Maven para gerenciar uma biblioteca de acordo com as regras de negócio da VHL Sistemas.
+Criação de uma API REST em Java, utilizando Spring Boot e Maven para gerenciar uma biblioteca.
 
 ## Endpoints:
 
