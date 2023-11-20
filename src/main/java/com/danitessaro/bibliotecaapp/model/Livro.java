@@ -1,5 +1,7 @@
 package com.danitessaro.bibliotecaapp.model;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -29,5 +31,9 @@ public class Livro {
     @Getter
     @Setter
     private Usuario usuario;
+
+    @Getter
+    @Setter
+    private Date dataDevolucao;
 
 }
