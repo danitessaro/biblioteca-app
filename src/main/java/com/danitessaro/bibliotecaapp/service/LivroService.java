@@ -1,5 +1,6 @@
 package com.danitessaro.bibliotecaapp.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import com.danitessaro.bibliotecaapp.repository.LivroRepository;
 @Service
 public class LivroService {
 
+    private static final int DIA_EM_MS = 86400000;
+    private static final int QTD_DIAS_DEVOLUCAO = DIA_EM_MS*7;
     private static final int QTD_MAXIMA_LIVRO_POR_USUARIO = 2;
     private static final String MSG_LIVRO_NAO_ENCONTRADO = "Livro não encontrado";
     private static final String MSG_EMPRESTIMO_INDISPONIVEL = "Livro não disponível para empréstimo";
@@ -65,6 +68,8 @@ public class LivroService {
         List<Livro> livrosEmprestados = buscarLivros(usuario);
         if (livroDisponivelParaEmprestimo(livro, livrosEmprestados)) {
             livro.setUsuario(usuario);
+            Date dataDevolucao = new Date(new Date().getTime() + QTD_DIAS_DEVOLUCAO);
+            livro.setDataDevolucao(dataDevolucao);
             return this.repository.save(livro);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MSG_EMPRESTIMO_INDISPONIVEL);
@@ -80,6 +85,7 @@ public class LivroService {
         Livro livroDevolvido = this.repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_LIVRO_NAO_ENCONTRADO));
         livroDevolvido.setUsuario(null);
+        livroDevolvido.setDataDevolucao(null);
         return this.repository.save(livroDevolvido);
     }
 
